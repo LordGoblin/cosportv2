@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row  justify-content-center">
+
+    <div class="col col-lg-2">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <%= link_to 'Profil', '#v-pills-profile',
+          class: "nav-link active secondary-color navpill-profil",
+          data: { toggle: "pill" },
+          role: "tab",
+          aria: { controls: true, selected: false },
+          id:"v-pills-profile-tab" %>
+          <% if @user.id == current_user.id %>
+        <%= link_to 'Mes Cosports', '#v-pills-events',
+          class: "nav-link secondary-color navpill-profil",
+          data: { toggle: "pill" },
+          role: "tab",
+          aria: { controls: true, selected: false },
+          id:"v-pills-events-tab" %>
+        <%= link_to 'Gestion des participants', '#v-pills-management',
+          class: "nav-link secondary-color navpill-profil",
+          data: { toggle: "pill" },
+          role: "tab",
+          aria: { controls: true, selected: false },
+          id:"v-pills-events-tab" %>
+          <% end %>
+      </div>
+    </div>
+
+    <div class="col col-lg-8 mx-auto">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+          <div id="card-event">
+            <div class="col mx-auto">
+              <div class="sticky font-1">
+                  <h5><%= @user.first_name %> <%= @user.last_name %></h5>
+                  </div>
+                    <div class="card rounded p-2 my-3">
+                        <div class="card-title">
+                          <% if current_user.id == @user.id %>
+                            <%= link_to "Edit", edit_user_registration_path, class: "nav-link" %>
+                          <% end %>
+                          <span class="profil-picture-user">
+                            <%if @user.profil_picture.attached?%>
+                      <div class="user" style="background-image: url(<%= rails_blob_url(@user.profil_picture) %>)"></div>
+
+                            <%else%>
+                              <p>pas encore de profil_picture</p>
+                            <% end %>
+                          </span>
+                          </div>
+                            <div class="card-body">
+                              <p>first_name: <%= @user.first_name %></p>
+                              <p>last_name: <%= @user.last_name %></p>
+                              <p>gender: <%= @user.gender %></p>
+                              <p>description: <%= @user.description %></p>
+                              <% if current_user.id == @user.id %>
+                                <p><%= @user.email %></p>
+                                <p><%= @user.phone_number %></p>
+                              <% end %>
+                              <% if @user.level != nil%>
+                                <p>level genreral: <%= @user.level %> <%= @level %></p>
+                              <% end %>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+        <div class="tab-pane fade" id="v-pills-events" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+          <% @user.users_sports.each do |level_sport| %>
+            <p>level: <%= level_sport.sport.sport_name %> (<%= level_sport.level_user %>)</p>
+          <% end %>
+
+          <%= render "sorted_event"  %>
+
+
+
+
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-management" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+          <%= render "attendances/manage_attendances" %>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+  </div>

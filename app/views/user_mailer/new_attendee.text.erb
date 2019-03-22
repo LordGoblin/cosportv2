@@ -1,0 +1,8 @@
+Salut <%= @user.first_name %> !
+==========================================================
+
+<%= @attendance.attendee.first_name %> <%= @attendance.attendee.last_name %> a demandé à participer à <%= @attendance.event.title %>.
+
+Tu peux gérer les demandes de participations à tes évènements sur <%= link_to("ton profil", user_url(@user.id)) %>.
+
+À très vite sur CoSport !

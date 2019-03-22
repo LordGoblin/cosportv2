@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Salut <%= @user.first_name %> !</h1>
+    <p>
+      <%= @attendance.attendee.first_name %> <%= @attendance.attendee.last_name %> a demandé à participer à <%= @attendance.event.title %>.
+    </p>
+    <p>
+      Tu peux gérer les demandes de participations à tes évènements sur <%= link_to("ton profil", user_url(@user.id)) %>.
+    </p>
+    <p> À très vite sur CoSport ! </p>
+  </body>
+</html>
